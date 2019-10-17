@@ -1,4 +1,5 @@
 import hash_functions
+import argparse
 
 class LinearProbe:
     def __init__(self, N, hash_fucntion):
@@ -147,3 +148,39 @@ class ChainedHash:
                 val = v
                 return val
         return val
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(
+        description='This Python code performs several experiments on different \
+                    hash algorithms and collision resolution strategy in a hash \
+                    table.'
+        prog='HashTables'
+    )
+
+    parser.add_argument('-n',
+                        '--size',
+                        type=int,
+                        help='The size of the hash table')
+
+    parser.add_argument('-a',
+                        '--algorithm',
+                        type=str,
+                        help='The hash algorithm to be used. Available options are \
+                             "ascii" and "rolling"')
+    parser.add_argument('-s',
+                        '--collision',
+                        type=str,
+                        help='The collision resolution strategy. Available options \
+                             are "LP" (linear probling) and "CH" (chained hash)')
+    parser.add_argument('-o',
+                        '--input',
+                        type=str,
+                        help='The file name of the input file.')
+    parser.add_argument('-k',
+                        '--key',
+                        type=int,
+                        help='')
+    
+    args = parser.parse_args()
+
