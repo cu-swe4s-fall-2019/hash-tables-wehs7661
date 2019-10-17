@@ -19,7 +19,7 @@ class TestHashFunctions(unittest.TestCase):
         self.assertIsNone(c)
 
 class TestHashTables(unittest.TestCase):
-    def test_linear_probing_search(self):
+    def test_linear_probing(self):
         ht1 = hash_tables.LinearProbe(1000, hash_functions.h_ascii)
         ht2 = hash_tables.LinearProbe(1000, hash_functions.h_rolling)
         ht1.add('ABC', 30)
@@ -29,7 +29,7 @@ class TestHashTables(unittest.TestCase):
         self.assertEqual(ht2.search('ABC'), 30)
         self.assertEqual(ht2.search('DEF'), None)
 
-    def test_chained_hash_search(self):
+    def test_chained_hash(self):
         ht1 = hash_tables.ChainedHash(1000, hash_functions.h_ascii)
         ht2 = hash_tables.ChainedHash(1000, hash_functions.h_rolling)
         ht1.add('ABC', 30)

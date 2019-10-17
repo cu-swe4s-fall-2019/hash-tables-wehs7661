@@ -1,3 +1,5 @@
+import sys
+import argparse
 
 def h_ascii(key, N):
     """
@@ -66,8 +68,7 @@ def h_rolling(key, N, p=53, m=2**64):
     s_mod = s % N
     return s_mod
 
-def h_python(key, N):
-    pass
+if __name__ == '__main__':
 
-
+    for l in open()
 
