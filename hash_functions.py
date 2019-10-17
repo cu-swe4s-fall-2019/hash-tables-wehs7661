@@ -70,5 +70,31 @@ def h_rolling(key, N, p=53, m=2**64):
 
 if __name__ == '__main__':
 
-    for l in open()
+    parser = argparse.ArgumentParser(
+        description='A Python module of different hash methods',
+        prog='hash_functions'
+    )
+
+    parser.add_argument('-i',
+                        '-input',
+                        type=str,
+                        help='The file name of the input file.')
+    parser.add_argument('-m',
+                        '--method',
+                        type=str,
+                        help='Hash methods. Available options are: "ascii" and "rolling".')
+    args = parser.parse_args()
+
+    if (not os.path.exists(args.input)):
+    print('Input file not found')
+    sys.exit(1)
+
+    for l in open(args.input):
+        if (args.method == 'ascii'):
+            print(h_ascii(l, 100000))
+        elif (args.method == 'rolling'):
+            print(h_rolling(l, 100000))
+        else:
+            print('Please input the hash methods avaiable, either "ascii" or "rolling".')
+            sys.exit(1)
 
