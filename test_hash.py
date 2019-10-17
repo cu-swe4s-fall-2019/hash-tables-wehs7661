@@ -1,5 +1,6 @@
 import unittest
 import hash_functions
+import hash_tables
 
 class TestHashFunctions(unittest.TestCase):
     def test_hash_ascii(self):
@@ -16,6 +17,28 @@ class TestHashFunctions(unittest.TestCase):
         c = hash_functions.h_rolling('ABC', 'test')
         self.assertNotEqual(a,b)
         self.assertIsNone(c)
+
+class TestHashTables(unittest.TestCase):
+    def test_linear_probing_search(self):
+        ht1 = hash_tables.LinearProbe(1000, hash_functions.h_ascii)
+        ht2 = hash_tables.LinearProbe(1000, hash_functions.h_rolling)
+        ht1.add('ABC', 30)
+        ht2.add('ABC', 30)
+        self.assertEqual(ht1.search('ABC'), 30)
+        self.assertEqual(ht1.search('DEF'), None)
+        self.assertEqual(ht2.search('ABC'), 30)
+        self.assertEqual(ht2.search('DEF'), None)
+
+    def test_chained_hash_search(self):
+        ht1 = hash_tables.ChainedHash(1000, hash_functions.h_ascii)
+        ht2 = hash_tables.ChainedHash(1000, hash_functions.h_rolling)
+        ht1.add('ABC', 30)
+        ht2.add('ABC', 30)
+        self.assertEqual(ht1.search('ABC'), 30)
+        self.assertEqual(ht1.search('DEF'), None)
+        self.assertEqual(ht2.search('ABC'), 30)
+        self.assertEqual(ht2.search('DEF'), None)
+        
 
 if __name__ == '__main__':
     unittest.main()
