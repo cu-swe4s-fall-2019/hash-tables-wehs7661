@@ -14,23 +14,35 @@ All the Python scripts are written in Python 3 and the packages required to run 
 
 ## Usage
 ### 1. Scatter plots of hash functions
-`hash_functions.py` includes two different hash algorithm, including `h_ascii` and `h_rolling`, which implements the ASCII hash method and the polynomial rolling hash method, respectively. Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`.
+`hash_functions.py` includes two different hash algorithm, including `h_ascii` and `h_rolling`, which implements the ASCII hash method and the polynomial rolling hash method, respectively. Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`. For the detailed usage of the methods, please refer to the docstring of the methods.
 #### (1) Using `h_ascii` on `rand_words.txt`
 ```
-python hash_functions.py 
+python hash_functions.py -i rand_words.txt -m ascii | python scatter.py -o images/ascii_func_rand.png -x "Hashed word" -y "Hashed value"
 ```
-
-
-
+![](images/ascii_func_rand.png)
 #### (2) Using `h_ascii` on `non_rand_words.txt`
+```
+python hash_functions.py -i non_rand_words.txt -m ascii | python scatter.py -o images/ascii_func_non_rand.png -x "Hashed word" -y "Hashed value"
+```
+![](images/ascii_func_non_rand.png)
 #### (3) Using `h_rolling` on `rand_words.txt`
+```
+python hash_functions.py -i rand_words.txt -m rolling | python scatter.py -o images/rolling_func_rand.png -x "Hashed word" -y "Hashed value"
+```
+![](images/rolling_func_rand.png)
+
+
 #### (4) Using `h_rolling` on `non_rand_words.txt`
+```
+python hash_functions.py -i non_rand_words.txt -m ascii | python scatter.py -o images/rolling_func_non_rand.png -x "Hashed word" -y "Hashed value"
+```
+![](images/rolling_func_non_rand.png)
+
+### 2. Scatter plots of hash tables
+`hash_tables.py` includes two different collision resolution strategies, including `LP` (linear probing) and `CH` (chained hash). Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`. For the detailed usage of the methods, please refer to the docstring of the methods.
+#### (1) Using `h_rolling` with linear probing approach
 
 
-
-
-
-![](images/ascii_hash_function_non_rand.png)
 
 
 

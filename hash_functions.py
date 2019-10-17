@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument('-i',
-                        '-input',
+                        '--input',
                         type=str,
                         help='The file name of the input file.')
     parser.add_argument('-m',
@@ -86,8 +87,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if (not os.path.exists(args.input)):
-    print('Input file not found')
-    sys.exit(1)
+        print('Input file not found')
+        sys.exit(1)
 
     for l in open(args.input):
         if (args.method == 'ascii'):

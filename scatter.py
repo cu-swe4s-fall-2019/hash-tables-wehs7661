@@ -10,15 +10,15 @@ if __name__ == '__main__':
         prog='scatter')
 
     parser.add_argument('-o',
-                        '-outfile',
+                        '--outfile',
                         type=str,
                         help='The filename of the output file.')
     parser.add_argument('-x',
-                        '-xlabel',
+                        '--xlabel',
                         type=str,
                         help='The x label')
     parser.add_argument('-y',
-                        '-ylabel',
+                        '--ylabel',
                         type=str,
                         help='The y label')
     
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     out_file = args.outfile
     x_label = args.xlabel
-    y_label = args.y_label
+    y_label = args.ylabel
     
     X, Y = [], []
     i = 0
@@ -50,5 +50,4 @@ if __name__ == '__main__':
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
 
-    plt.show()
     plt.savefig(out_file,bbox_inches='tight')
