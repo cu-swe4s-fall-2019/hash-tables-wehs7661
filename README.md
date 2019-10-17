@@ -8,6 +8,7 @@ This is a repository for Assignment 6 of the course Software Engineering for Sci
 - `rand_words.txt`: A text file of random words.
 - `non_rand_words.txt`: A text file of non-random words.
 - `scatter.py`: A Python script for generating a scatter plot from `STDIN`.
+- `hash_table_plots.sh`: A shell script for generating scatter plots of hash tables with different input parameters. 
 
 ## Installation
 All the Python scripts are written in Python 3 and the packages required to run the codes include: `argparse`, `sys`, `matplotlib`, `time`, `os`, `random` and `unittest`.
@@ -39,8 +40,8 @@ python hash_functions.py -i non_rand_words.txt -m ascii | python scatter.py -o i
 ![](images/rolling_func_non_rand.png)
 
 ### 2. Scatter plots of hash tables
-`hash_tables.py` includes two different collision resolution strategies, including `LP` (linear probing) and `CH` (chained hash). Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`. For the detailed usage of the methods, please refer to the docstring of the methods.
-#### (1) Using `h_rolling` with linear probing approach
+`hash_tables.py` includes two different collision resolution strategies, including `LP` (linear probing) and `CH` (chained hash). Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`. For the detailed usage of the methods, please refer to the docstring of the methods. To generate the following plots at once, run `bash hash_table_plots.sh`. 
+#### (1) Using `h_ascii` with linear probing appraoch on `rand_words.txt`
 
 
 
@@ -52,5 +53,6 @@ python hash_functions.py -i non_rand_words.txt -m ascii | python scatter.py -o i
 - Added `rand_words.txt` and `non_rand_words.txt`.
 - Developed unit tests for all the methods in `hash_functions.py` and `hash_tables.py`, including `test_hash_ascii`, `test_hahs_rolling`, `test_linear_probing` and `test_chained_hash`.
 - Developed functional tests for `hash_functions.py`, `hash_tables.py` and `scatter.py`.
+- Performed a bunch of experiments on hash tables and hash functions as shown above. 
 - Modified `.travis.yml` to pass TravisCI.
 

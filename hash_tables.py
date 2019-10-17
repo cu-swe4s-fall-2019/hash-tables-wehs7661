@@ -225,7 +225,7 @@ if __name__ == '__main__':
                 either "LP" or "CH".')
             sys.exit(1)
 
-    if args.algorithm == 'rolling':
+    elif args.algorithm == 'rolling':
 
         if args.collision == 'LP':
             ht = LinearProbe(args.size, hash_functions.h_rolling)
