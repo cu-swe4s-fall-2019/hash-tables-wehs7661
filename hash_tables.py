@@ -1,5 +1,35 @@
 import hash_functions
 import argparse
+import sys
+import time 
+import os
+import random
+
+def reservoir_sampling(new_val, size, V):
+    """
+    This function generates a list of keys to be searched
+
+    Parameters
+    ----------
+    new_val : str
+        new value to be searched
+
+    size : int
+        number of keys to be searched
+
+    V : list 
+        list of values to be searched
+
+    Returns
+    -------
+    None
+    """
+    if len(V) < size:
+        V.append(new_val)
+    else:
+        j = random.randint(0, len(V))
+        if j < len(V):
+            V[j] = new_val
 
 class LinearProbe:
     def __init__(self, N, hash_fucntion):
@@ -154,9 +184,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='This Python code performs several experiments on different \
                     hash algorithms and collision resolution strategy in a hash \
-                    table.'
-        prog='HashTables'
-    )
+                    table.',
+        prog='HashTables')
 
     parser.add_argument('-n',
                         '--size',
@@ -173,14 +202,61 @@ if __name__ == '__main__':
                         type=str,
                         help='The collision resolution strategy. Available options \
                              are "LP" (linear probling) and "CH" (chained hash)')
-    parser.add_argument('-o',
+    parser.add_argument('-i',
                         '--input',
                         type=str,
                         help='The file name of the input file.')
-    parser.add_argument('-k',
-                        '--key',
+    parser.add_argument('-k',        
+                        '--n_key',
                         type=int,
-                        help='')
+                        help='Number of keys to add')
     
     args = parser.parse_args()
 
+    ht = None
+    if args.algorithm == 'ascii':
+
+        if args.collision == 'LP':
+            ht = LinearProbe(args.size, hash_functions.h_ascii)
+        elif args.collision == 'CH':
+            ht = ChainedHash(args.size, hash_functions.h_ascii)
+        else:
+            print('Please input the collision resolution strategies available, \
+                either "LP" or "CH".')
+            sys.exit(1)
+
+    if args.algorithm == 'rolling':
+
+        if args.collision == 'LP':
+            ht = LinearProbe(args.size, hash_functions.h_rolling)
+        elif args.collision == 'CH':
+            ht = ChainedHash(args.size, hash_functions.h_rolling)
+        else:
+            print('Please input the collision resolution strategies available, \
+                either "LP" or "CH".')
+            sys.exit(1)
+    else:
+        print('Please input the hash algorithms available, either "ascii" or "rolling".')
+        sys.exit(1)
+    
+    keys_to_search = 100   # number of keys to search
+    V = []
+
+    if (not os.path.exists(args.input)):
+        print('Input file not found')
+        sys.exit(1)
+
+    for l in open(args.input):
+        reservoir_sampling(l, keys_to_search, V)
+        t0 = time.time()
+        ht.add(l,l)
+        t1 = time.time()
+        print('insert', ht.M/ht.N, t1 - t0)
+        if ht.M == args.n_key:
+            break
+
+    for v in V:
+        t0 = time.time()
+        r = ht.search(v)
+        t1 = time.time()
+        print('search', t1-t0)
