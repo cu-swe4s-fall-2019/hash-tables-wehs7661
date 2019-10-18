@@ -1,9 +1,10 @@
 import hash_functions
 import argparse
 import sys
-import time 
+import time
 import os
 import random
+
 
 def reservoir_sampling(new_val, size, V):
     """
@@ -17,7 +18,7 @@ def reservoir_sampling(new_val, size, V):
     size : int
         number of keys to be searched
 
-    V : list 
+    V : list
         list of values to be searched
 
     Returns
@@ -30,6 +31,7 @@ def reservoir_sampling(new_val, size, V):
         j = random.randint(0, len(V))
         if j < len(V):
             V[j] = new_val
+
 
 class LinearProbe:
     def __init__(self, N, hash_fucntion):
@@ -49,14 +51,14 @@ class LinearProbe:
         None
         """
         self.hash_fucntion = hash_fucntion
-        self.N = N                          
-        self.T = [None for i in range(N)]  # Hash table 
+        self.N = N
+        self.T = [None for i in range(N)]  # Hash table
         self.M = 0   # number of pair inserted
 
     def add(self, key, value):
         """
-        This functions insert a key-value pair to a slot of the hash table using
-        the linear probing approach
+        This functions insert a key-value pair to a slot of the hash table
+        using the linear probing approach
 
         Parameters
         ----------
@@ -72,10 +74,10 @@ class LinearProbe:
         """
         start_hash = self.hash_fucntion(key, self.N)
         insert = False
-        
+
         for i in range(self.N):
             test_slot = (start_hash + i) % self.N
-            if self.T[test_slot] == None:
+            if self.T[test_slot] is None:
                 self.T[test_slot] = (key, value)
                 self.M += 1
                 insert = True
@@ -90,20 +92,20 @@ class LinearProbe:
         Parameters
         ----------
         key : str
-            the key for the searching 
+            the key for the searching
 
         Returns
         -------
         val : float or NoneType
-            the value of the given key or None if no corresponding value was 
+            the value of the given key or None if no corresponding value was
             found
         """
         start_hash = self.hash_fucntion(key, self.N)
         val = None
-        
+
         for i in range(self.N):
             test_slot = (start_hash + i) % self.N
-            if self.T[test_slot] == None:
+            if self.T[test_slot] is None:
                 val = None
                 return val
             if self.T[test_slot][0] == key:
@@ -131,13 +133,13 @@ class ChainedHash:
         """
         self.hash_fucntion = hash_fucntion
         self.N = N
-        self.T = [ [] for i in range(N)]
+        self.T = [[] for i in range(N)]
         self.M = 0
 
     def add(self, key, value):
         """
-        This functions insert a key-value pair to a slot of the hash table using
-        the chained hash approach
+        This functions insert a key-value pair to a slot of the hash table
+        using the chained hash approach
 
         Parameters
         ----------
@@ -151,7 +153,7 @@ class ChainedHash:
         True
         """
         start_hash = self.hash_fucntion(key, self.N)
-        self.T[start_hash].append((key,value))
+        self.T[start_hash].append((key, value))
         self.M += 1
         return True
 
@@ -163,27 +165,29 @@ class ChainedHash:
         Parameters
         ----------
         key : str
-            the key for the searching 
+            the key for the searching
 
         Returns
         -------
         val : float or NoneType
-            the value of the given key or None if no corresponding value was 
+            the value of the given key or None if no corresponding value was
             found
         """
         start_hash = self.hash_fucntion(key, self.N)
-        val = None 
+        val = None
         for k, v in self.T[start_hash]:
             if key == k:
                 val = v
                 return val
         return val
 
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
-        description='This Python code performs several experiments on different \
-                    hash algorithms and collision resolution strategy in a hash \
+        description='This Python code performs several experiments on \
+                    different hash algorithms and collision resolution \
+                    strategy in a hash \
                     table.',
         prog='HashTables')
 
@@ -195,22 +199,23 @@ if __name__ == '__main__':
     parser.add_argument('-a',
                         '--algorithm',
                         type=str,
-                        help='The hash algorithm to be used. Available options are \
-                             "ascii" and "rolling"')
+                        help='The hash algorithm to be used. Available \
+                        options are "ascii" and "rolling"')
     parser.add_argument('-s',
                         '--collision',
                         type=str,
-                        help='The collision resolution strategy. Available options \
-                             are "LP" (linear probling) and "CH" (chained hash)')
+                        help='The collision resolution strategy. Available \
+                        options are "LP" (linear probling) and "CH" \
+                        (chained hash)')
     parser.add_argument('-i',
                         '--input',
                         type=str,
                         help='The file name of the input file.')
-    parser.add_argument('-k',        
+    parser.add_argument('-k',
                         '--n_key',
                         type=int,
                         help='Number of keys to add')
-    
+
     args = parser.parse_args()
 
     ht = None
@@ -221,8 +226,8 @@ if __name__ == '__main__':
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_ascii)
         else:
-            print('Please input the collision resolution strategies available, \
-                either "LP" or "CH".')
+            print('Please input the collision resolution strategies \
+                available, either "LP" or "CH".')
             sys.exit(1)
 
     elif args.algorithm == 'rolling':
@@ -232,13 +237,14 @@ if __name__ == '__main__':
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_rolling)
         else:
-            print('Please input the collision resolution strategies available, \
-                either "LP" or "CH".')
+            print('Please input the collision resolution strategies \
+                available, either "LP" or "CH".')
             sys.exit(1)
     else:
-        print('Please input the hash algorithms available, either "ascii" or "rolling".')
+        print('Please input the hash algorithms available, either \
+            "ascii" or "rolling".')
         sys.exit(1)
-    
+
     keys_to_search = 100   # number of keys to search
     V = []
 
@@ -249,7 +255,7 @@ if __name__ == '__main__':
     for l in open(args.input):
         reservoir_sampling(l, keys_to_search, V)
         t0 = time.time()
-        ht.add(l,l)
+        ht.add(l, l)
         t1 = time.time()
         print('insert', ht.M/ht.N, t1 - t0)
         if ht.M == args.n_key:
