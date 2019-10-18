@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/cu-swe4s-fall-2019/hash-tables-wehs7661.svg?branch=master)](https://travis-ci.com/cu-swe4s-fall-2019/hash-tables-wehs7661)
 # Hash tables
 
 ## Description
