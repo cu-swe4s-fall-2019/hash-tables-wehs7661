@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 
+
 def h_ascii(key, N):
     """
     This function takes a string key and a hash table szie and returns a hash
@@ -35,8 +36,8 @@ def h_ascii(key, N):
 
 def h_rolling(key, N, p=53, m=2**64):
     """
-    This function takes a string key and a hash table size to return a hash 
-    that is based on the polynomial rolling hash algorithm. 
+    This function takes a string key and a hash table size to return a hash
+    that is based on the polynomial rolling hash algorithm.
 
     Parameters
     ----------
@@ -45,7 +46,7 @@ def h_rolling(key, N, p=53, m=2**64):
     N : int
         the size of the hash table
     p : int
-        a prime number roughly equal to the number of characters in the input. 
+        a prime number roughly equal to the number of characters in the input.
         p is frequently set as 53
     m : int
         m should be a large number, since the probability of two random strings
@@ -69,6 +70,7 @@ def h_rolling(key, N, p=53, m=2**64):
     s_mod = s % N
     return s_mod
 
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
@@ -83,7 +85,8 @@ if __name__ == '__main__':
     parser.add_argument('-m',
                         '--method',
                         type=str,
-                        help='Hash methods. Available options are: "ascii" and "rolling".')
+                        help='Hash methods. Available options are: "ascii" \
+                        and "rolling".')
     args = parser.parse_args()
 
     if (not os.path.exists(args.input)):
@@ -96,6 +99,6 @@ if __name__ == '__main__':
         elif (args.method == 'rolling'):
             print(h_rolling(l, 100000))
         else:
-            print('Please input the hash methods avaiable, either "ascii" or "rolling".')
+            print('Please input the hash methods avaiable, either "ascii" \
+                  or "rolling".')
             sys.exit(1)
-
