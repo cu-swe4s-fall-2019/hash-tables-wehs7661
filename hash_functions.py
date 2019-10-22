@@ -99,7 +99,7 @@ def h_myown(key, N, m=2069):
     key = str(key)
     s = 0
     for i in range(len(key)):
-        s += ord(key[i]) * 10 + i
+        s += (ord(key[i]) * 10 + i) * i
     s = s % m
     s_mod = s % N
     return s_mod

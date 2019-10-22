@@ -46,7 +46,7 @@ python hash_functions.py -i non_rand_words.txt -m myown | python scatter.py -o i
 ![](images/myown_func_non_rand.png)
 ### 2. Scatter plots of hash tables
 `hash_tables.py` includes two different collision resolution strategies, including `LP` (linear probing) and `CH` (chained hash). Here, we have two different input files, including `rand_words.txt` and `non_rand_words.txt`. For the detailed usage of the methods, please refer to the docstring of the methods. To generate the following plots at once, run `bash hash_table_plots.sh`. 
-#### (1) Using `h_ascii` with linear probing appraoch on `rand_words.txt` (Figure 5. and 6.)
+#### (1) Using `h_ascii` with linear probing appraoch on `rand_words.txt` (Figure 7. and 8.)
 ![](images/ascii_linear_rand_add.png)
 ![](images/ascii_linear_rand_search.png)
 #### (2) Using `h_ascii` with linear probing appraoch on `non_rand_words.txt` (Figure 7. and 8.)
