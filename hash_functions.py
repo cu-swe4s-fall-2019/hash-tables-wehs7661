@@ -71,6 +71,7 @@ def h_rolling(key, N, p=53, m=2**64):
     s_mod = s % N
     return s_mod
 
+
 def h_myown(key, N, m=2069):
     """
     This function takes a string key and a hash table size to return a hash
@@ -87,7 +88,7 @@ def h_myown(key, N, m=2069):
 
     Returns
     -------
-    s_mod : intpython hash_functions.py -i non_rand_words.txt -m rolling | python scatter.py -o images/rolling_func_non_rand.png -x "Hashed word" -y "Hashed value"
+    s_mod : int
         a hash corresponding to the key
     """
 
@@ -103,6 +104,7 @@ def h_myown(key, N, m=2069):
     s = s % m
     s_mod = s % N
     return s_mod
+
 
 if __name__ == '__main__':
 

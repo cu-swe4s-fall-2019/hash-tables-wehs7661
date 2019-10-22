@@ -70,5 +70,6 @@ class TestHashTables(unittest.TestCase):
         self.assertEqual(ht3.search('ABC'), 30)
         self.assertEqual(ht3.search('DEF'), None)
 
+
 if __name__ == '__main__':
     unittest.main()

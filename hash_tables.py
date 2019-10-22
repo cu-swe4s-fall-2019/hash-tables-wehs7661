@@ -181,6 +181,7 @@ class ChainedHash:
                 return val
         return val
 
+
 class QuadraticProbe:
     def __init__(self, N, hash_fucntion):
         """
@@ -337,7 +338,6 @@ if __name__ == '__main__':
             print('Please input the collision resolution strategies \
                 available, including "LP", "QP" or "CH".')
             sys.exit(1)
-    
 
     else:
         print('Please input the hash algorithms available, either \
