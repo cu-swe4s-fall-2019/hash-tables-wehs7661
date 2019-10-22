@@ -1,6 +1,7 @@
 import os
 import sys
 import argparse
+import numpy as np
 
 
 def h_ascii(key, N):
@@ -70,6 +71,38 @@ def h_rolling(key, N, p=53, m=2**64):
     s_mod = s % N
     return s_mod
 
+def h_myown(key, N, m=2069):
+    """
+    This function takes a string key and a hash table size to return a hash
+    that is based on the ASCII code and the position of the character.
+
+    Parameters
+    ----------
+    key : str
+        the key of the value to be stored
+    N : int
+        the size of the hash table
+    p : int
+        a prime number, here the default is 2069
+
+    Returns
+    -------
+    s_mod : intpython hash_functions.py -i non_rand_words.txt -m rolling | python scatter.py -o images/rolling_func_non_rand.png -x "Hashed word" -y "Hashed value"
+        a hash corresponding to the key
+    """
+
+    try:
+        N = int(N)
+    except ValueError:
+        print('The size of the hash table (N) should be an integer.')
+        return None
+    key = str(key)
+    s = 0
+    for i in range(len(key)):
+        s += ord(key[i]) * 10 + i
+    s = s % m
+    s_mod = s % N
+    return s_mod
 
 if __name__ == '__main__':
 
@@ -86,7 +119,7 @@ if __name__ == '__main__':
                         '--method',
                         type=str,
                         help='Hash methods. Available options are: "ascii" \
-                        and "rolling".')
+                        "rolling" and "myown".')
     args = parser.parse_args()
 
     if (not os.path.exists(args.input)):
@@ -98,6 +131,8 @@ if __name__ == '__main__':
             print(h_ascii(l, 100000))
         elif (args.method == 'rolling'):
             print(h_rolling(l, 100000))
+        elif (args.method == 'myown'):
+            print(h_myown(l, 100000))
         else:
             print('Please input the hash methods avaiable, either "ascii" \
                   or "rolling".')

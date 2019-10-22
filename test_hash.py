@@ -19,6 +19,13 @@ class TestHashFunctions(unittest.TestCase):
         self.assertNotEqual(a, b)
         self.assertIsNone(c)
 
+    def test_hash_myown(self):
+        a = hash_functions.h_rolling('ABC', 100)
+        b = hash_functions.h_rolling('ACB', 100)
+        c = hash_functions.h_rolling('ABC', 'test')
+        self.assertNotEqual(a, b)
+        self.assertIsNone(c)
+
 
 class TestHashTables(unittest.TestCase):
     def test_linear_probing(self):
