@@ -19,27 +19,56 @@ class TestHashFunctions(unittest.TestCase):
         self.assertNotEqual(a, b)
         self.assertIsNone(c)
 
+    def test_hash_myown(self):
+        a = hash_functions.h_myown('ABC', 100)
+        b = hash_functions.h_myown('ACB', 100)
+        c = hash_functions.h_myown('ABC', 'test')
+        self.assertNotEqual(a, b)
+        self.assertIsNone(c)
+
 
 class TestHashTables(unittest.TestCase):
     def test_linear_probing(self):
         ht1 = hash_tables.LinearProbe(1000, hash_functions.h_ascii)
         ht2 = hash_tables.LinearProbe(1000, hash_functions.h_rolling)
+        ht3 = hash_tables.LinearProbe(1000, hash_functions.h_myown)
         ht1.add('ABC', 30)
         ht2.add('ABC', 30)
+        ht3.add('ABC', 30)
         self.assertEqual(ht1.search('ABC'), 30)
         self.assertEqual(ht1.search('DEF'), None)
         self.assertEqual(ht2.search('ABC'), 30)
         self.assertEqual(ht2.search('DEF'), None)
+        self.assertEqual(ht3.search('ABC'), 30)
+        self.assertEqual(ht3.search('DEF'), None)
+
+    def test_quadratic_probing(self):
+        ht1 = hash_tables.QuadraticProbe(1000, hash_functions.h_ascii)
+        ht2 = hash_tables.QuadraticProbe(1000, hash_functions.h_rolling)
+        ht3 = hash_tables.QuadraticProbe(1000, hash_functions.h_myown)
+        ht1.add('ABC', 30)
+        ht2.add('ABC', 30)
+        ht3.add('ABC', 30)
+        self.assertEqual(ht1.search('ABC'), 30)
+        self.assertEqual(ht1.search('DEF'), None)
+        self.assertEqual(ht2.search('ABC'), 30)
+        self.assertEqual(ht2.search('DEF'), None)
+        self.assertEqual(ht3.search('ABC'), 30)
+        self.assertEqual(ht3.search('DEF'), None)
 
     def test_chained_hash(self):
         ht1 = hash_tables.ChainedHash(1000, hash_functions.h_ascii)
         ht2 = hash_tables.ChainedHash(1000, hash_functions.h_rolling)
+        ht3 = hash_tables.ChainedHash(1000, hash_functions.h_myown)
         ht1.add('ABC', 30)
         ht2.add('ABC', 30)
+        ht3.add('ABC', 30)
         self.assertEqual(ht1.search('ABC'), 30)
         self.assertEqual(ht1.search('DEF'), None)
         self.assertEqual(ht2.search('ABC'), 30)
         self.assertEqual(ht2.search('DEF'), None)
+        self.assertEqual(ht3.search('ABC'), 30)
+        self.assertEqual(ht3.search('DEF'), None)
 
 
 if __name__ == '__main__':

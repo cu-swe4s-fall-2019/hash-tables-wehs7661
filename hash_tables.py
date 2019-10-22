@@ -182,6 +182,87 @@ class ChainedHash:
         return val
 
 
+class QuadraticProbe:
+    def __init__(self, N, hash_fucntion):
+        """
+        The initilization function takes in the size of the hash table and the
+        hash function
+
+        Parameters
+        ----------
+        N : int
+            the size of the hash table
+        hash_function : function
+            the hash function for generating a hash table
+
+        Returns
+        -------
+        None
+        """
+        self.hash_fucntion = hash_fucntion
+        self.N = N
+        self.T = [None for i in range(N)]  # Hash table
+        self.M = 0   # number of pair inserted
+
+    def add(self, key, value):
+        """
+        This functions insert a key-value pair to a slot of the hash table
+        using the quadratic probing approach
+
+        Parameters
+        ----------
+        key : str
+            the key of the corresponding value
+        value : float
+            the value to be stored in the slot in the hash table
+
+        Returns
+        -------
+        insert : bool
+            Whether the pair is inserted or not
+        """
+        start_hash = self.hash_fucntion(key, self.N)
+        insert = False
+
+        for i in range(self.N):
+            test_slot = (start_hash + i ** 2) % self.N
+            if self.T[test_slot] is None:
+                self.T[test_slot] = (key, value)
+                self.M += 1
+                insert = True
+                return insert
+        return insert
+
+    def search(self, key):
+        """
+        This function returns the value corresponding to a given key using a
+        quadratic probing approach.
+
+        Parameters
+        ----------
+        key : str
+            the key for the searching
+
+        Returns
+        -------
+        val : float or NoneType
+            the value of the given key or None if no corresponding value was
+            found
+        """
+        start_hash = self.hash_fucntion(key, self.N)
+        val = None
+
+        for i in range(self.N):
+            test_slot = (start_hash + i ** 2) % self.N
+            if self.T[test_slot] is None:
+                val = None
+                return val
+            if self.T[test_slot][0] == key:
+                val = self.T[test_slot][1]
+                return val
+        return val
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
@@ -223,23 +304,41 @@ if __name__ == '__main__':
 
         if args.collision == 'LP':
             ht = LinearProbe(args.size, hash_functions.h_ascii)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_ascii)
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_ascii)
         else:
             print('Please input the collision resolution strategies \
-                available, either "LP" or "CH".')
+                available, including "LP", "QP" or "CH".')
             sys.exit(1)
 
     elif args.algorithm == 'rolling':
 
         if args.collision == 'LP':
             ht = LinearProbe(args.size, hash_functions.h_rolling)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_rolling)
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_rolling)
         else:
             print('Please input the collision resolution strategies \
-                available, either "LP" or "CH".')
+                available, including "LP", "QP" or "CH".')
             sys.exit(1)
+
+    elif args.algorithm == 'myown':
+
+        if args.collision == 'LP':
+            ht = LinearProbe(args.size, hash_functions.h_myown)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_myown)
+        elif args.collision == 'CH':
+            ht = ChainedHash(args.size, hash_functions.h_myown)
+        else:
+            print('Please input the collision resolution strategies \
+                available, including "LP", "QP" or "CH".')
+            sys.exit(1)
+
     else:
         print('Please input the hash algorithms available, either \
             "ascii" or "rolling".')
