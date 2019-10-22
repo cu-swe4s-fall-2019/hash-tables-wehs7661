@@ -134,6 +134,6 @@ if __name__ == '__main__':
         elif (args.method == 'myown'):
             print(h_myown(l, 100000))
         else:
-            print('Please input the hash methods avaiable, either "ascii" \
-                  or "rolling".')
+            print('Please input the hash methods avaiable, including "ascii" \
+                  ,"rolling" or "myown".')
             sys.exit(1)

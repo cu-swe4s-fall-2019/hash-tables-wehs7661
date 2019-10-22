@@ -303,23 +303,42 @@ if __name__ == '__main__':
 
         if args.collision == 'LP':
             ht = LinearProbe(args.size, hash_functions.h_ascii)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_ascii)
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_ascii)
         else:
             print('Please input the collision resolution strategies \
-                available, either "LP" or "CH".')
+                available, including "LP", "QP" or "CH".')
             sys.exit(1)
 
     elif args.algorithm == 'rolling':
 
         if args.collision == 'LP':
             ht = LinearProbe(args.size, hash_functions.h_rolling)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_rolling)
         elif args.collision == 'CH':
             ht = ChainedHash(args.size, hash_functions.h_rolling)
         else:
             print('Please input the collision resolution strategies \
-                available, either "LP" or "CH".')
+                available, including "LP", "QP" or "CH".')
             sys.exit(1)
+
+    elif args.algorithm == 'myown':
+
+        if args.collision == 'LP':
+            ht = LinearProbe(args.size, hash_functions.h_myown)
+        elif args.collision == 'QP':
+            ht = QuadraticProbe(args.size, hash_functions.h_myown)
+        elif args.collision == 'CH':
+            ht = ChainedHash(args.size, hash_functions.h_myown)
+        else:
+            print('Please input the collision resolution strategies \
+                available, including "LP", "QP" or "CH".')
+            sys.exit(1)
+    
+
     else:
         print('Please input the hash algorithms available, either \
             "ascii" or "rolling".')
