@@ -135,6 +135,7 @@ class ChainedHash:
         self.N = N
         self.T = [[] for i in range(N)]
         self.M = 0
+        self.keys = []
 
     def add(self, key, value):
         """
@@ -155,6 +156,7 @@ class ChainedHash:
         start_hash = self.hash_fucntion(key, self.N)
         self.T[start_hash].append((key, value))
         self.M += 1
+        self.keys.append(key)
         return True
 
     def search(self, key):
